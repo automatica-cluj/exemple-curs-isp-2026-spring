@@ -10,6 +10,7 @@ The examples follow a progressive structure, building on each other to introduce
 | `bookstore-api-persistence-02` | Adds JPA/Hibernate persistence with H2 and PostgreSQL | `@Entity`, `@ManyToOne`, `JpaRepository`, derived queries, Docker Compose |
 | `bookstore-api-with-tests-03` | Adds a comprehensive test suite | JUnit 5, Mockito, `@DataJpaTest`, `@WebMvcTest`, `MockMvc`, AssertJ |
 | `bookstore-api-persistence-auth-04` | Adds JWT authentication and role-based authorization | Spring Security, JWT, `@WithMockUser`, filter chains, BCrypt |
+| `bookstore-frontend-05` | Adds a vanilla HTML/CSS/JS frontend that consumes the API | `fetch()`, async/await, JWT in `localStorage`, DOM manipulation, CORS, SPA pattern |
 | `bookstore-api` | Full reference implementation combining all of the above | Complete bookstore API with persistence, security, testing, and Docker support |
 
 ## Getting Started
