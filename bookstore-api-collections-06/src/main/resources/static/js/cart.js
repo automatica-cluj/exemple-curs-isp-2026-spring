@@ -4,6 +4,10 @@
 
 async function loadCart() {
     const content = document.getElementById('content');
+    if (!isLoggedIn()) {
+        content.innerHTML = '<p class="empty">Please <a href="#" onclick="navigate(\'login\'); return false;">log in</a> to view your cart.</p>';
+        return;
+    }
     try {
         const items = await apiGetCart();
         content.innerHTML = renderCart(items);

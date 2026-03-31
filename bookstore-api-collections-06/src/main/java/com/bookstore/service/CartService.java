@@ -29,7 +29,7 @@ import java.util.Map;
 public class CartService {
 
     // Each user gets their own cart, keyed by username
-    // computeIfAbsent() creates a new Cart the first time a user accesses it
+    // computeIfAbse    nt() creates a new Cart the first time a user accesses it
     private final Map<String, Cart> carts = new HashMap<>();
     private final BookRepository bookRepository;
 

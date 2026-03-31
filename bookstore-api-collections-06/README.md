@@ -1,86 +1,54 @@
-# Bookstore API — Example 05: Frontend
+# Bookstore API — Exercise 06: Collections
 
-This example extends the bookstore API from Example 04 (JWT authentication) with a **vanilla HTML/CSS/JavaScript frontend** that consumes the REST API.
+A full-stack bookstore application demonstrating the **Java Collections Framework** (Set, Map, Queue, List) in a Spring Boot REST API with a vanilla JavaScript frontend.
 
-No Node.js, no npm, no build tools — just static files served by Spring Boot.
+## Tech Stack
 
-## Prerequisites
-
-- Java 17+
-- Maven 3.8+
-- Docker (optional, for PostgreSQL)
+- **Backend**: Java 17, Spring Boot 3.4.3, Spring Security (JWT), Spring Data JPA
+- **Database**: H2 (dev) / PostgreSQL 16 (Docker)
+- **Frontend**: Vanilla HTML/CSS/JavaScript SPA (no build tools)
 
 ## Quick Start
 
+### Development (H2 in-memory)
+
 ```bash
-cd bookstore-api
 mvn spring-boot:run
 ```
 
-Open [http://localhost:8080](http://localhost:8080) in your browser.
+Open [http://localhost:8080](http://localhost:8080). Seed data (3 authors, 3 books) is loaded automatically.
 
-**Seed data:** The app starts with 3 authors, 3 books, and an admin user (`admin` / `admin123`).
+### Docker (PostgreSQL)
 
-## What to Try
-
-1. **Browse books** — the book list loads without login (public GET endpoint)
-2. **Browse authors** — click "Authors" in the nav bar
-3. **Register** — create a new account (username >= 3 chars, password >= 6 chars)
-4. **Login** — sign in to see Add/Edit/Delete buttons appear
-5. **Create a book** — click "+ Add Book", fill the form, submit
-6. **Edit a book** — click "Edit" on any book row
-7. **Delete a book** — click "Delete" (requires ADMIN role — login as `admin` / `admin123`)
-8. **Logout** — clears the JWT token from localStorage
-
-## Frontend Architecture
-
-The frontend is a **single-page application** (SPA) built with plain browser APIs — no framework, no build step. All files live in `src/main/resources/static/` and are served automatically by Spring Boot.
-
-```
-static/
-  index.html          Single HTML shell — nav bar + content container
-  css/style.css       Minimal clean styling (~100 lines)
-  js/
-    api.js            fetch() wrappers + JWT token management
-    auth.js           Login / register / logout UI
-    books.js          Book CRUD UI (list, create, edit, delete)
-    authors.js        Author list + create UI
-    app.js            Page controller + initialization
+```bash
+docker compose up
 ```
 
-### How it works
+App runs at [http://localhost:8080](http://localhost:8080) with PostgreSQL on port 5432.
 
-- `api.js` provides an `apiFetch()` wrapper that automatically attaches the JWT token from `localStorage` to every request
-- `app.js` has a `navigate(page)` function that swaps `innerHTML` of the main content area — no page reloads
-- Each UI module (`books.js`, `authors.js`, `auth.js`) renders HTML strings and attaches event listeners
-- The nav bar updates dynamically based on login state (decoded from the JWT payload)
+## First Steps
 
-## Key Concepts Demonstrated
+1. **Browse books and authors** — public, no login required
+2. **Register** — first registered user becomes **ADMIN**, all others become USER
+3. **Login** — unlocks cart, add-to-cart, and checkout
+4. **Admin actions** — create/edit/delete books and authors, view and process orders
 
-| Concept | Where |
-|---------|-------|
-| `fetch()` API + async/await | `js/api.js` — `apiFetch()` wrapper |
-| JWT storage in `localStorage` | `js/api.js` — `getToken()`, `setToken()`, `clearToken()` |
-| `Authorization: Bearer` header | `js/api.js` — attached automatically by `apiFetch()` |
-| DOM manipulation | `js/books.js`, `js/auth.js` — `innerHTML`, event listeners |
-| Frontend-backend separation | Static files talk to `/api/*` via HTTP/JSON only |
-| CORS configuration | `config/WebConfig.java` — allows cross-origin API calls |
-| Single-page application pattern | `js/app.js` — `navigate()` swaps content without page reload |
-| XSS prevention | `js/books.js` — `escapeHtml()` for user-generated content |
+## Build & Run
 
-## Backend Changes from Example 04
+| Command | Description |
+|---------|-------------|
+| `mvn spring-boot:run` | Run with H2 in-memory database |
+| `mvn package` | Build executable JAR in `target/` |
+| `java -jar target/bookstore-api-0.0.1-SNAPSHOT.jar` | Run the packaged JAR |
+| `docker compose up` | Build and run with PostgreSQL |
+| `docker compose down -v` | Stop and remove volumes |
+| `mvn test` | Run all tests |
 
-Only two backend files were changed:
+## H2 Console (dev only)
 
-1. **`SecurityConfig.java`** — added `.requestMatchers("/", "/index.html", "/css/**", "/js/**").permitAll()` so Spring Security does not block the static frontend files
-2. **`WebConfig.java`** (new) — CORS configuration for cross-origin API access
+Available at [http://localhost:8080/h2-console](http://localhost:8080/h2-console) with JDBC URL `jdbc:h2:mem:bookstore`, user `sa`, no password.
 
-## CORS Configuration
+## Further Documentation
 
-The new `WebConfig.java` allows cross-origin requests from `http://localhost:*`. This is needed if you run the frontend separately (e.g., open `index.html` directly from the filesystem or serve it on a different port).
-
-When served by Spring Boot at `http://localhost:8080`, everything is same-origin so CORS is not strictly required — but it's included to teach the concept.
-
-## API Reference
-
-See the full API documentation in [Example 04's README](../bookstore-api-persistence-auth-04/bookstore-api/README.md).
+- **[DEVELOPER-GUIDE.md](DEVELOPER-GUIDE.md)** — Architecture, backend/frontend design, security, API reference, deployment, and glossary of terms
+- **[COLLECTIONS-GUIDE.md](COLLECTIONS-GUIDE.md)** — Detailed walkthrough of Java Collections patterns demonstrated in this exercise

@@ -86,6 +86,7 @@ function updateNavBar() {
     document.getElementById('nav-login').style.display = loggedIn ? 'none' : '';
     document.getElementById('nav-register').style.display = loggedIn ? 'none' : '';
     document.getElementById('nav-logout').style.display = loggedIn ? '' : 'none';
+    document.getElementById('nav-cart').style.display = loggedIn ? '' : 'none';
     document.getElementById('nav-orders').style.display = (loggedIn && isAdmin()) ? '' : 'none';
 
     const userSpan = document.getElementById('nav-user');
