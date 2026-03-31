@@ -6,12 +6,12 @@ The examples follow a progressive structure, building on each other to introduce
 
 | Folder | Description | Key Topics |
 |--------|-------------|------------|
-| `bookstore-api-simple-01` | Minimal skeleton — no database, no security | IoC/DI, layered architecture, REST controllers, Bean Validation, error handling |
-| `bookstore-api-persistence-02` | Adds JPA/Hibernate persistence with H2 and PostgreSQL | `@Entity`, `@ManyToOne`, `JpaRepository`, derived queries, Docker Compose |
-| `bookstore-api-with-tests-03` | Adds a comprehensive test suite | JUnit 5, Mockito, `@DataJpaTest`, `@WebMvcTest`, `MockMvc`, AssertJ |
-| `bookstore-api-persistence-auth-04` | Adds JWT authentication and role-based authorization | Spring Security, JWT, `@WithMockUser`, filter chains, BCrypt |
-| `bookstore-frontend-05` | Adds a vanilla HTML/CSS/JS frontend that consumes the API | `fetch()`, async/await, JWT in `localStorage`, DOM manipulation, CORS, SPA pattern |
-| `bookstore-api` | Full reference implementation combining all of the above | Complete bookstore API with persistence, security, testing, and Docker support |
+| `01-bookstore-api-simple` | Minimal skeleton — no database, no security | IoC/DI, layered architecture, REST controllers, Bean Validation, error handling |
+| `02-bookstore-api-persistence` | Adds JPA/Hibernate persistence with H2 and PostgreSQL | `@Entity`, `@ManyToOne`, `JpaRepository`, derived queries, Docker Compose |
+| `03-bookstore-api-with-tests` | Adds a comprehensive test suite | JUnit 5, Mockito, `@DataJpaTest`, `@WebMvcTest`, `MockMvc`, AssertJ |
+| `04-bookstore-api-persistence-auth` | Adds JWT authentication and role-based authorization | Spring Security, JWT, `@WithMockUser`, filter chains, BCrypt |
+| `05-bookstore-frontend` | Adds a vanilla HTML/CSS/JavaScript SPA frontend | `fetch()` API, JWT in `localStorage`, DOM manipulation, SPA routing |
+| `06-bookstore-api-collections` | Demonstrates Java Collections Framework in a real app | Set, Map, Queue, List, `@ElementCollection`, `Collectors.groupingBy()` |
 
 ## Getting Started
 
