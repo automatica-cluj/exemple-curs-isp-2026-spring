@@ -104,6 +104,8 @@ ssh my-azure-vm
 
 ## 4. Install Git
 
+> **Run on: Azure VM** — connect via SSH first (`ssh my-azure-vm`).
+
 ```bash
 sudo apt-get update
 sudo apt-get install -y git
@@ -115,6 +117,8 @@ git --version
 ---
 
 ## 5. Install Docker & Docker Compose
+
+> **Run on: Azure VM** — all commands in this section are executed on the remote VM via SSH.
 
 ### Step 1 — Update and install dependencies
 
@@ -165,6 +169,8 @@ docker run hello-world  # Should run a test container
 
 ## 6. Network Security & Opening Ports
 
+> **Run on: Azure Portal** (web browser) — these are Azure networking settings, not VM shell commands.
+
 When you run Docker services, they listen on ports (e.g. port 80 for a web app, 8080 for this bookstore API). Azure blocks all inbound ports by default — you need to open them manually.
 
 ### Check Current Rules
@@ -199,7 +205,7 @@ For this bookstore application, you only need to open port **8080** — that is 
 
 > **Security tip:** Only open ports you actually need. Avoid opening port ranges or using `*` (any port) for inbound rules in production environments.
 
-### Verify a Port is Reachable (from your Mac)
+### Verify a Port is Reachable (from your local machine)
 
 ```bash
 nc -zv <YOUR_VM_IP> 8080
@@ -208,6 +214,8 @@ nc -zv <YOUR_VM_IP> 8080
 ---
 
 ## 7. Deploy the Bookstore Application
+
+> **Run on: Azure VM** — all commands in this section are executed on the remote VM via SSH.
 
 Once Docker is installed and port 8080 is open, deploy the bookstore on your VM.
 
