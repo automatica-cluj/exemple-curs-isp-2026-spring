@@ -123,7 +123,11 @@ See [iot-esp32-app/esp32-c3-mqtt-guide.md](iot-esp32-app/esp32-c3-mqtt-guide.md)
 
 ## Running the Spring Boot Dashboard
 
-![webdashboard](/Users/mihai/Developer/utcn/isp-2026-course/examples/01-IoT-mqtt-esp32-demo/webdashboard.png)
+<p align="center">
+  <img src="webdashboard.png" alt="Web Dashboard">
+</p>
+
+
 
 ### Option 1: Local Development (H2 in-memory database)
 
