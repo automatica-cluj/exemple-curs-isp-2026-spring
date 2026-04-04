@@ -2,8 +2,9 @@
 #include <PubSubClient.h>
 
 // ---- UPDATE THESE ----
-const char* ssid = "CHANGE THIS";
-const char* password = "CHANGE THIS";
+// Double check if you are usiung mobile hotspot if it is set to 2.4 GHz, otherways will not connect!
+const char* ssid = "CHANGE";
+const char* password = "CHANGE";
 const char* mqtt_server = "control.aut.utcluj.ro";
 const int mqtt_port = 11188;
 // ----------------------
@@ -14,6 +15,7 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 String deviceId;
 String topicPrefix;
+bool ledOn = false;
 
 void callback(char* topic, byte* payload, unsigned int length) {
   String message;
