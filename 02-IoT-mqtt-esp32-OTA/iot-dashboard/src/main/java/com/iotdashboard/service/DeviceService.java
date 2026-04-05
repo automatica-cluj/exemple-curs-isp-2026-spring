@@ -68,6 +68,8 @@ public class DeviceService {
             case "ip" -> device.setIpAddress(value.trim());
             case "mac" -> device.setMacFormatted(value.trim());
             case "led_state" -> device.setLedState(value.trim());
+            case "firmware_version" -> device.setFirmwareVersion(value.trim());
+            case "ota_status" -> device.setOtaStatus(value.trim());
         }
 
         deviceRepository.save(device);
@@ -142,6 +144,8 @@ public class DeviceService {
                 device.getUptime(),
                 device.getWifiChannel(),
                 device.getLedState(),
+                device.getFirmwareVersion(),
+                device.getOtaStatus(),
                 device.getLastSeen(),
                 device.getOtaLastAttempt()
         );

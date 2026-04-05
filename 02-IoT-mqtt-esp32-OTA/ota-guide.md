@@ -165,6 +165,14 @@ Manages a single firmware file on disk:
 
 The `GET /api/firmware/latest` endpoint returns a `FileSystemResource`. Spring automatically sets the `Content-Length` header from the file size. This header is **required** by the ESP32 `HTTPUpdate` library — without it, the download will fail.
 
+### Network Requirement
+
+**The dashboard must be reachable by the ESP32 over the network.** During OTA, the ESP32 makes an HTTP GET request to the dashboard to download the firmware binary. This means:
+
+- The server must have a **LAN IP** (if ESP32 is on the same network) or a **public IP** (if the ESP32 is remote)
+- `localhost` or `127.0.0.1` will **not work** — those resolve to the ESP32 itself, not your server
+- The server's firewall must allow inbound connections on port 8080
+
 ### Configuration
 
 In `application.yml`:
@@ -174,10 +182,15 @@ firmware:
   storage-dir: ./firmware                                    # Where .bin files are stored
   download-url: http://YOUR_LAN_IP:8080/api/firmware/latest  # URL the ESP32 will use
 
+admin:
+  password: changeme123                                      # Password for upload & OTA deploy
+
 spring.servlet.multipart:
   max-file-size: 2MB
   max-request-size: 2MB
 ```
+
+> **Note:** The firmware upload and OTA deploy actions require a password. The dashboard will prompt for it when you click "Upload" or "Update FW". Change the default password before deploying.
 
 ---
 

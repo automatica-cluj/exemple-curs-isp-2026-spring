@@ -83,6 +83,23 @@ mqtt.broker: control.aut.utcluj.ro
 mqtt.port: 11188
 ```
 
+### Admin Password
+
+Firmware upload and OTA deploy actions are password-protected. The dashboard prompts for a password before allowing these operations.
+
+```yaml
+admin:
+  password: changeme123    # change this before deploying
+```
+
+Override at runtime without editing the file:
+
+```bash
+java -jar iot-dashboard.jar --admin.password=mysecretpass
+# or via environment variable:
+ADMIN_PASSWORD=mysecretpass java -jar iot-dashboard.jar
+```
+
 ### Docker Profile — PostgreSQL
 
 `application-docker.yml` — activated via `SPRING_PROFILES_ACTIVE=docker`:
@@ -91,6 +108,8 @@ mqtt.port: 11188
 spring.datasource.url: jdbc:postgresql://postgres:5432/iotdb
 spring.jpa.hibernate.ddl-auto: update
 ```
+
+> **Important:** For OTA updates to work, the dashboard must be reachable by the ESP32 over the network. The `firmware.download-url` must point to the server's **LAN IP or public IP** (e.g., `http://192.168.1.100:8080/api/firmware/latest`), not `localhost` or `127.0.0.1`. The ESP32 downloads the firmware binary via HTTP from this URL — if it can't reach the server, the OTA update will fail.
 
 ## How to Run
 

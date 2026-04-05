@@ -13,6 +13,8 @@ public record DeviceResponse(
         Long uptime,
         Integer wifiChannel,
         String ledState,
+        String firmwareVersion,
+        String otaStatus,
         LocalDateTime lastSeen,
         LocalDateTime otaLastAttempt
 ) {}

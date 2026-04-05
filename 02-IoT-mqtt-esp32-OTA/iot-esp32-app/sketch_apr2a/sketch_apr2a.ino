@@ -1,13 +1,16 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include <HTTPUpdate.h>
 
 // ---- UPDATE THESE ----
 // Double check if you are usiung mobile hotspot if it is set to 2.4 GHz, otherways will not connect!
-const char* ssid = "CHANGE";
-const char* password = "CHANGE";
+const char* ssid = "changeme";
+const char* password = "chamngeme";
 const char* mqtt_server = "control.aut.utcluj.ro";
 const int mqtt_port = 11188;
 // ----------------------
+
+const char* FIRMWARE_VERSION = "1.0.1";
 
 #define LED_PIN 8
 
@@ -29,7 +32,43 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   // Compare just the end of the topic
   String t = String(topic);
-if (t.endsWith("/led")) {
+if (t.endsWith("/ota")) {
+    String url = message;
+    Serial.println("========== OTA UPDATE ==========");
+    Serial.print("OTA update requested from: ");
+    Serial.println(url);
+
+    client.publish((topicPrefix + "/ota_status").c_str(), "downloading");
+    Serial.println("Published ota_status: downloading");
+
+    Serial.println("Starting HTTP download...");
+    WiFiClient otaClient;
+    t_httpUpdate_return ret = httpUpdate.update(otaClient, url);
+
+    switch (ret) {
+      case HTTP_UPDATE_FAILED:
+        Serial.printf("OTA FAILED: Error (%d): %s\n",
+                       httpUpdate.getLastError(),
+                       httpUpdate.getLastErrorString().c_str());
+        {
+          String errMsg = "failed: " + httpUpdate.getLastErrorString();
+          client.publish((topicPrefix + "/ota_status").c_str(), errMsg.c_str());
+        }
+        break;
+      case HTTP_UPDATE_NO_UPDATES:
+        Serial.println("OTA: No updates available");
+        client.publish((topicPrefix + "/ota_status").c_str(), "no update");
+        break;
+      case HTTP_UPDATE_OK:
+        Serial.println("OTA: Update OK — rebooting...");
+        // Never reached — ESP reboots on success
+        break;
+    }
+    Serial.println("================================");
+    return;
+  }
+
+  if (t.endsWith("/led")) {
   if (message == "on") {
     digitalWrite(LED_PIN, LOW);
     ledOn = true;
@@ -49,6 +88,10 @@ void reconnect() {
       String ledTopic = topicPrefix + "/led";
       client.subscribe(ledTopic.c_str());
       Serial.println("Subscribed to: " + ledTopic);
+
+      String otaTopic = topicPrefix + "/ota";
+      client.subscribe(otaTopic.c_str());
+      Serial.println("Subscribed to: " + otaTopic);
     } else {
       Serial.print("failed (");
       Serial.print(client.state());
@@ -64,7 +107,7 @@ void setup() {
   digitalWrite(LED_PIN, HIGH);  // LED off at start (active LOW)
 
   // Connect to Wi-Fi
-  Serial.print("Connecting to Wi-Fi");
+  Serial.print("Connecting to Wi-Fi!");
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -82,6 +125,7 @@ void setup() {
   Serial.println("Topic prefix: " + topicPrefix);
 
   // Connect to MQTT
+  client.setBufferSize(512);  // Default 256 is too small for OTA URLs
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
 }
@@ -112,8 +156,8 @@ void loop() {
     client.publish((topicPrefix + "/rssi").c_str(), buf);
 
     // Free heap memory
-    snprintf(buf, sizeof(buf), "%u", ESP.getFreeHeap());
-    client.publish((topicPrefix + "/heap").c_str(), buf);
+    // snprintf(buf, sizeof(buf), "%u", ESP.getFreeHeap());
+    // client.publish((topicPrefix + "/heap").c_str(), buf);
 
     // Wi-Fi channel
     snprintf(buf, sizeof(buf), "%d", WiFi.channel());
@@ -127,6 +171,9 @@ void loop() {
 
     //LED status
     client.publish((topicPrefix + "/led_state").c_str(), ledOn ? "on" : "off");
+
+    // Firmware version
+    client.publish((topicPrefix + "/firmware_version").c_str(), FIRMWARE_VERSION);
 
     Serial.printf("Temp: %.1f | RSSI: %d | Heap: %u | Uptime: %lus\n",
                   chipTemp, WiFi.RSSI(), ESP.getFreeHeap(), millis() / 1000);

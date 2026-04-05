@@ -27,6 +27,8 @@ public class Device {
     private Long uptime;
     private Integer wifiChannel;
     private String ledState;
+    private String firmwareVersion;
+    private String otaStatus;
 
     private LocalDateTime lastSeen;
     private LocalDateTime otaLastAttempt;
@@ -121,6 +123,22 @@ public class Device {
 
     public void setLedState(String ledState) {
         this.ledState = ledState;
+    }
+
+    public String getFirmwareVersion() {
+        return firmwareVersion;
+    }
+
+    public void setFirmwareVersion(String firmwareVersion) {
+        this.firmwareVersion = firmwareVersion;
+    }
+
+    public String getOtaStatus() {
+        return otaStatus;
+    }
+
+    public void setOtaStatus(String otaStatus) {
+        this.otaStatus = otaStatus;
     }
 
     public LocalDateTime getLastSeen() {

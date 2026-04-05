@@ -29,6 +29,10 @@ mqtt:
   broker: control.aut.utcluj.ro
   port: 11188
 
+# Admin password for firmware upload and OTA deploy
+admin:
+  password: changeme123
+
 # OTA firmware configuration
 firmware:
   storage-dir: ./firmware

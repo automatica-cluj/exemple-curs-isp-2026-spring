@@ -27,13 +27,20 @@ async function uploadFirmware() {
         alert('Select a .bin file first');
         return;
     }
+    var password = prompt('Enter admin password:');
+    if (!password) return;
     var formData = new FormData();
     formData.append('file', fileInput.files[0]);
     try {
         var response = await fetch(API_BASE + '/firmware/upload', {
             method: 'POST',
+            headers: { 'X-Admin-Password': password },
             body: formData
         });
+        if (response.status === 401) {
+            alert('Wrong password');
+            return;
+        }
         if (!response.ok) {
             throw new Error('Upload failed');
         }
@@ -46,8 +53,17 @@ async function uploadFirmware() {
 
 async function triggerOta(deviceId) {
     if (!confirm('Deploy firmware to this device?')) return;
+    var password = prompt('Enter admin password:');
+    if (!password) return;
     try {
-        var response = await fetch(API_BASE + '/firmware/deploy/' + deviceId, { method: 'POST' });
+        var response = await fetch(API_BASE + '/firmware/deploy/' + deviceId, {
+            method: 'POST',
+            headers: { 'X-Admin-Password': password }
+        });
+        if (response.status === 401) {
+            alert('Wrong password');
+            return;
+        }
         if (!response.ok) {
             throw new Error('Deploy failed');
         }
