@@ -30,6 +30,8 @@ public class Device {
     private String firmwareVersion;
     private String otaStatus;
     private String ssid;
+    private String powerMode;
+    private Integer telemetryInterval;
 
     private LocalDateTime lastSeen;
     private LocalDateTime otaLastAttempt;
@@ -148,6 +150,22 @@ public class Device {
 
     public void setSsid(String ssid) {
         this.ssid = ssid;
+    }
+
+    public String getPowerMode() {
+        return powerMode;
+    }
+
+    public void setPowerMode(String powerMode) {
+        this.powerMode = powerMode;
+    }
+
+    public Integer getTelemetryInterval() {
+        return telemetryInterval;
+    }
+
+    public void setTelemetryInterval(Integer telemetryInterval) {
+        this.telemetryInterval = telemetryInterval;
     }
 
     public LocalDateTime getLastSeen() {

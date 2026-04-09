@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c43ac96f-7309-4b2e-8e8c-f1c8a9b64715" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../02-IoT-mqtt-esp32-OTA/iot-dashboard/src/main/java/com/iotdashboard/dto/DeviceResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../02-IoT-mqtt-esp32-OTA/iot-dashboard/src/main/java/com/iotdashboard/dto/DeviceResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../02-IoT-mqtt-esp32-OTA/iot-dashboard/src/main/java/com/iotdashboard/model/Device.java" beforeDir="false" afterPath="$PROJECT_DIR$/../02-IoT-mqtt-esp32-OTA/iot-dashboard/src/main/java/com/iotdashboard/model/Device.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../02-IoT-mqtt-esp32-OTA/iot-dashboard/src/main/java/com/iotdashboard/service/DeviceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../02-IoT-mqtt-esp32-OTA/iot-dashboard/src/main/java/com/iotdashboard/service/DeviceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../02-IoT-mqtt-esp32-OTA/iot-esp32-app/sketch_apr2a/sketch_apr2a.ino" beforeDir="false" afterPath="$PROJECT_DIR$/../02-IoT-mqtt-esp32-OTA/iot-esp32-app/sketch_apr2a/sketch_apr2a.ino" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_/Users/mihai/Developer/utcn/isp-2026-course/examples/03-IoT-mqtt-esp32-LowPower" value="3C8NCajUVCbeJKl7tDBv8lE8gm2" />
+    </persistenceIdMap>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3,
+  "fromUser": false
+}]]></component>
+  <component name="ProjectId" id="3C8NCajUVCbeJKl7tDBv8lE8gm2" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/mihai/Developer/utcn/isp-2026-course/examples/03-IoT-mqtt-esp32-LowPower",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.32098.37" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.32098.37" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="StructureViewState">
+    <option name="selectedTab" value="Physical" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c43ac96f-7309-4b2e-8e8c-f1c8a9b64715" name="Changes" comment="" />
+      <created>1775763110674</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1775763110674</updated>
+      <workItem from="1775763111808" duration="19000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>

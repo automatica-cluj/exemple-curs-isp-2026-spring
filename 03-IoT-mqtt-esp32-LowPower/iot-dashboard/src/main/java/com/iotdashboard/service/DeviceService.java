@@ -71,6 +71,8 @@ public class DeviceService {
             case "firmware_version" -> device.setFirmwareVersion(value.trim());
             case "ota_status" -> device.setOtaStatus(value.trim());
             case "ssid" -> device.setSsid(value.trim());
+            case "power_mode", "power_mode_ack", "power_mode_status" -> device.setPowerMode(value.trim());
+            case "telemetry_interval" -> device.setTelemetryInterval(parseInt(value));
         }
 
         deviceRepository.save(device);
@@ -148,6 +150,8 @@ public class DeviceService {
                 device.getFirmwareVersion(),
                 device.getOtaStatus(),
                 device.getSsid(),
+                device.getPowerMode(),
+                device.getTelemetryInterval(),
                 device.getLastSeen(),
                 device.getOtaLastAttempt()
         );

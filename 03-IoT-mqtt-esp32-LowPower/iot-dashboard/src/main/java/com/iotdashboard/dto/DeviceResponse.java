@@ -16,6 +16,8 @@ public record DeviceResponse(
         String firmwareVersion,
         String otaStatus,
         String ssid,
+        String powerMode,
+        Integer telemetryInterval,
         LocalDateTime lastSeen,
         LocalDateTime otaLastAttempt
 ) {}

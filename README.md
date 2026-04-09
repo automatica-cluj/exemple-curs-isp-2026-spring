@@ -23,6 +23,7 @@ A second set of examples demonstrating IoT concepts with an **ESP32 microcontrol
 |--------|-------------|------------|
 | `01-IoT-mqtt-esp32-demo` | ESP32 publishes sensor data over MQTT; Spring Boot dashboard visualizes and controls the LED | MQTT, Arduino, PubSubClient, Eclipse Paho, REST API, Docker Compose |
 | `02-IoT-mqtt-esp32-OTA` | Extends the demo with wireless firmware updates via the dashboard | OTA, HTTPUpdate, A/B flash partitions, firmware endpoints |
+| `03-IoT-mqtt-esp32-LowPower` | Adds low power mode — reduces telemetry frequency and enables WiFi modem sleep on command | Power management, modem sleep, DTIM beacon duty-cycling, dynamic telemetry interval |
 
 > **No ESP32 hardware?** The `01-IoT-mqtt-esp32-demo` includes a `simulate-device.sh` script that publishes fake sensor data to the MQTT broker, so you can test the full dashboard without a physical board.
 

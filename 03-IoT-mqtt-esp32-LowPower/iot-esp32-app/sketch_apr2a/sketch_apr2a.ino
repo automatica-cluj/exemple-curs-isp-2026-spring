@@ -10,7 +10,7 @@ const char* mqtt_server = "control.aut.utcluj.ro";
 const int mqtt_port = 11188;
 // ----------------------
 
-const char* FIRMWARE_VERSION = "1.1.2";
+const char* FIRMWARE_VERSION = "1.2.0";
 
 #define LED_PIN 8
 
@@ -19,6 +19,8 @@ PubSubClient client(espClient);
 String deviceId;
 String topicPrefix;
 bool ledOn = false;
+bool lowPowerMode = false;
+unsigned long telemetryInterval = 5000;  // ms (5s normal, 30s low power)
 
 void callback(char* topic, byte* payload, unsigned int length) {
   String message;
@@ -78,6 +80,22 @@ if (t.endsWith("/ota")) {
     ledOn = false;
   }
   }
+
+  if (t.endsWith("/power_mode")) {
+    if (message == "low") {
+      lowPowerMode = true;
+      telemetryInterval = 30000;
+      WiFi.setSleep(true);   // Enable modem sleep
+      Serial.println("LOW POWER mode enabled (30s interval, modem sleep on)");
+    } else if (message == "normal") {
+      lowPowerMode = false;
+      telemetryInterval = 5000;
+      WiFi.setSleep(false);  // Disable modem sleep
+      Serial.println("NORMAL power mode (5s interval, modem sleep off)");
+    }
+    client.publish((topicPrefix + "/power_mode_ack").c_str(), lowPowerMode ? "low" : "normal");
+    client.publish((topicPrefix + "/telemetry_interval").c_str(), lowPowerMode ? "30" : "5");
+  }
 }
 
 void reconnect() {
@@ -92,6 +110,10 @@ void reconnect() {
       String otaTopic = topicPrefix + "/ota";
       client.subscribe(otaTopic.c_str());
       Serial.println("Subscribed to: " + otaTopic);
+
+      String powerTopic = topicPrefix + "/power_mode";
+      client.subscribe(powerTopic.c_str());
+      Serial.println("Subscribed to: " + powerTopic);
     } else {
       Serial.print("failed (");
       Serial.print(client.state());
@@ -137,7 +159,7 @@ void loop() {
   client.loop();
 
   static unsigned long lastMsg = 0;
-  if (millis() - lastMsg > 5000) {
+  if (millis() - lastMsg > telemetryInterval) {
     lastMsg = millis();
 
     char buf[32];
@@ -178,8 +200,14 @@ void loop() {
     // Firmware version
     client.publish((topicPrefix + "/firmware_version").c_str(), FIRMWARE_VERSION);
 
-    Serial.printf("Temp: %.1f | RSSI: %d | Heap: %u | Uptime: %lus\n",
-                  chipTemp, WiFi.RSSI(), ESP.getFreeHeap(), millis() / 1000);
+    // Power mode
+    client.publish((topicPrefix + "/power_mode_status").c_str(), lowPowerMode ? "low" : "normal");
+    snprintf(buf, sizeof(buf), "%lu", telemetryInterval / 1000);
+    client.publish((topicPrefix + "/telemetry_interval").c_str(), buf);
+
+    Serial.printf("Temp: %.1f | RSSI: %d | Heap: %u | Uptime: %lus | Power: %s\n",
+                  chipTemp, WiFi.RSSI(), ESP.getFreeHeap(), millis() / 1000,
+                  lowPowerMode ? "LOW" : "NORMAL");
   }
 
   delay(1);  // yield to RTOS — prevents CPU spin and reduces heat

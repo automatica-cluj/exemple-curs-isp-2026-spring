@@ -131,4 +131,6 @@ void loop() {
     Serial.printf("Temp: %.1f | RSSI: %d | Heap: %u | Uptime: %lus\n",
                   chipTemp, WiFi.RSSI(), ESP.getFreeHeap(), millis() / 1000);
   }
+
+  delay(1);  // yield to RTOS — prevents CPU spin and reduces heat
 }
