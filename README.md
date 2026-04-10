@@ -15,3 +15,6 @@ The examples follow a progressive structure, building on each other to introduce
 
 ---
 
+## IoT / Embedded Examples
+
+The IoT examples (ESP32 + MQTT + Spring Boot dashboards) have been moved to a separate repository: [exemple-curs-isp-2026-iot](https://github.com/automatica-cluj/exemple-curs-isp-2026-iot).
