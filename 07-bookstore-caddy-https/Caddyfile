@@ -1,7 +1,7 @@
-# For local development, use "localhost"
-# For a remote server with IP, replace with: https://YOUR.IP.ADDRESS
-localhost {
-	tls internal
-
+# Local:  use "localhost" (self-signed cert, browser warning)
+# Remote: use your DuckDNS subdomain (real Let's Encrypt cert)
+#
+# See HTTPS_Setup.md for instructions.
+{$SITE_ADDRESS:localhost} {
 	reverse_proxy app:8090
 }
