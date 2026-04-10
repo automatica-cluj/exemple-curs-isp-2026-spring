@@ -1,0 +1,7 @@
+# For local development, use "localhost"
+# For a remote server with IP, replace with: https://YOUR.IP.ADDRESS
+localhost {
+	tls internal
+
+	reverse_proxy app:8090
+}
